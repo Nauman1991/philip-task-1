@@ -1,0 +1,23 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>code</mat-icon>
+        Github
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="connected" color="primary">check_circle</mat-icon>
+        <mat-icon *ngIf="!connected">access_time</mat-icon>
+        {{ connected ? 'Connected' : 'Not connected' }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngIf="connected; else notConnected">
+      <p>Admin: Last Synced: {{ lastSyncedDate | date:'yyyy-MM-dd HH:mm a' }}</p>
+      <p>Sync Type: {{ syncType }}</p>
+      <button mat-raised-button color="warn" (click)="removeIntegration()">Remove</button>
+    </ng-container>
+
+    <ng-template #notConnected>
+      <button mat-raised-button color="primary" (click)="connect()">Connect</button>
+    </ng-template>
+  </mat-expansion-panel>
